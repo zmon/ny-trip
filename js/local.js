@@ -15,8 +15,8 @@ var local_default = {
         boxStyle: {
             background: "url('img/tipbox.gif') no-repeat",
             opacity: 0.92,
-            width: "370px",
-            height: "370px"
+            width: "270px",
+            height: "270px"
         },
         closeBoxMargin: "11px 4px 4px 4px",
         closeBoxURL: "img/close-button.png",

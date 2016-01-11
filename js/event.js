@@ -19,16 +19,13 @@ var Event = (function ($) {
                 if (ThisEvent.infobox != null && ThisEvent.infobox.visible) {
                     ThisEvent.infobox.close(Map, ThisEvent.marker);
                 } else {
-                    ThisEvent.infoboxtext = '<div class="infoBox" style="border:2px solid rgb(16,16,16); margin-top:8px; background:#fff; color: black; padding:5px; font-family:Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 20px;">';
+                    ThisEvent.infoboxtext = '<div class="infoBox" style="border:2px solid rgb(16,16,16); margin-top:8px; background:#fff; color: black; padding:5px; font-family:Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 16px;">';
 
                     var project_name = ThisEvent.data['Name'];
                     ThisEvent.infoboxtext += '   <p>' + "\n";
                     ThisEvent.infoboxtext += '                   <b> ' + project_name + "</b><br \>\n";
-                    ThisEvent.infoboxtext += '                   ' + ThisEvent.data['Note'].substring(0, 200) + "<br>\n";
-                    ThisEvent.infoboxtext += '                   <span style="color: grey;">Type: </span>' + ThisEvent.data['Category'] + "<br>\n";
-                    ThisEvent.infoboxtext += '                   <span style="color: grey;">Location: </span>';
 
-                        ThisEvent.infoboxtext += ThisEvent.data['FullAddress'] + "<br>\n";
+                        ThisEvent.infoboxtext += ThisEvent.data['Street Address'] + "\n";
 
 
                     ThisEvent.infoboxtext += '        </p>' + "\n";

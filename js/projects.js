@@ -17,7 +17,7 @@ var Projects = (function ($) {
         this.getEvents = function (rows, Map, project_type_info, Default) {
 
             for (var i in rows) {
-                rows[i]['name'] = rows[i]['1. Project Title/Name'];
+                rows[i]['name'] = rows[i]['Name'];
             }
             rows.sort(function (a, b) {
                 if (a.name > b.name) {
@@ -60,7 +60,7 @@ var Projects = (function ($) {
 
                     this.Events[i].latlng = new google.maps.LatLng(Lat, Lng);
 
-                    var project_types = $.trim(this.Events[i].data['3. Project type']);      // Start project type
+                    var project_types = $.trim(this.Events[i].data['Category']);      // Start project type
 
                     for (var project_type in project_type_info) {
                         var project = project_type_info[project_types];
@@ -102,10 +102,10 @@ var Projects = (function ($) {
                     this.Events[i].infobox = new InfoBox(infoboxoptions);
 
                     var data = this.Events[i].data;
-                    var project_name = data['1. Project Title/Name'];
+                    var project_name = data['Name'];
 
                     //
-                    ptype = data['3. Project type'];
+                    ptype = data['Category'];
                     if ((typeof project_type_info[(ptype)] === 'undefined')) {
                         ptype = 'Other';
                     }
@@ -127,26 +127,16 @@ var Projects = (function ($) {
                     accordion += '              <div id="collapse' + i + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' + i + '">' + "\n";
                     accordion += '                <div class="panel-body">' + "\n";
                     accordion += '                <p><a id="show-on-map-' + i + '" type="button" class="btn btn-default" href="#">Show on map</a></p>';
-                    accordion += '                <p>' + data['2. Project description'] + "</p>";
 
-                    accordion += '                <p><span style="color: grey;">Time Frame: </span>' + data['5. What is the start date of your project?'] + ' through ' + data['6. What is the finish date (or anticipated finish date)?'] + "\n";
+                    accordion += this.displayAsLink('', data['Website']);
+                    accordion += this.displayIt('Type:', data['Type']);
+                    accordion += this.displayIt('Note:', data['Note']);
 
-                    accordion += '                <p><span style="color: grey;">Project Type: </span>' + data['3. Project type'] + '</p>' + "\n";
 
-                    accordion += this.displayAsLink('', data['4. Project website or Facebook page ']);
-                    accordion += this.displayIt('Phase:', data['7. What phase of the project are you in?']);
-                    accordion += this.displayIt('Partners:', data['8. Who are your project partners?']);
-                    accordion += this.displayIt('Neighborhood(s):', data['10. For area-wide projects, list the neighborhood(s) in which this project occurs.']);
-
-                    var project_boundaries = data['11. For area-wide projects, does this project have more specific boundaries?'];
-                    if (project_boundaries && project_boundaries.toLocaleLowerCase() != 'no') {
-                        accordion += this.displayIt('Boundaries:', project_boundaries);
-                    }
-
-                    var street_address = data['13. Street address of the project'];
-                    var city = data['14. City'];
-                    var state = data['15. State'];
-                    var zip = data['16. Zip'];
+                    var street_address = data['Street Address'];
+                    var city = data['City'];
+                    var state = data['State'];
+                    var zip = data['Zip'];
                     var full_address = '';
                     var address_sep = '';
                     if (street_address != '') {
@@ -165,44 +155,26 @@ var Projects = (function ($) {
                     }
 
                     accordion += this.displayIt('Address:', full_address);
-                    accordion += this.displayIt('Neighborhood Assoc Support:', data['12. Does the project have the support of the neighborhood association?']);
 
-                    accordion += this.displayIt('Organization name:', data['17. Organization name']);
-                    accordion += this.displayAsLink('', data['18. Organization website or Facebook page']);
-                    accordion += this.displayIt('Contact:', data['19. Name of lead contact person for project']);
-                    accordion += this.displayIt('Phone:', data['20. Phone number of the project\'s contact person']);
-                    accordion += this.displayIt('Email:', data['20. Email address of the project\'s contact person']);
-                    accordion += this.displayIt('Type:', data['21. Which best describes your organization?']);
-                    accordion += this.displayIt('Project Needs:', data['22. The project is in need of:']);
-                    accordion += this.displayIt('Will share experience:', data['23. We are happy to talk to others about our project and experience!']);
+                    accordion += this.displayIt('Name:', data['Name']);
+                    accordion += this.displayAsLink('', data['Website']);
+
+                    accordion += this.displayIt('Phone:', data['Phone']);
 
 
-                    var ga = "_gaq.push(['_trackEvent', 'Accordion', 'Fix-Map','" + project_name + "']);";
+
                     accordion += '' + "\n";
-                    accordion += '        <br>' + "\n";
-                    accordion += '                <p>   <a  id="fix-map-' + i + '" onclick="' + ga + '" style="float: right;" href="mailto:info@communitykc.org?subject=Please Change ' + project_name + ' (' + i + ')">Request Change</a></p>' + "\n";
-                    accordion += '                </p>' + "\n";
                     accordion += '                </div>' + "\n";
                     accordion += '              </div>' + "\n";
                     accordion += '            </div>' + "\n";
 
                     $('#accordion').append(accordion);
-                    function createfunc(project_name) {
-                        return function () {
-                            $('#link' + i).on("click", function () {
-                                _gaq.push(['_trackEvent', 'Accordion', 'Click', project_name]);
-                            });
-                        };
-                    }
-
-                    this.funcs[i] = createfunc(project_name);
-                    this.funcs[i]();
                 }
             }
 
             for (var i in this.Events) {
 
-                var project_name = this.Events[i].data['1. Project Title/Name'];
+                var project_name = this.Events[i].data['Name'];
 
                 // Listen for marker clicks
 
@@ -266,16 +238,17 @@ var Projects = (function ($) {
                 var li = '<li role="presentation" id="' + project.id + '" class="proj-type"><a href="#">' + project_type + '<span id="cnt-' + project.id + '" class="badge">' + project.count + '</span></a></li>';
                 $("#project-type-filter-buttons").append(li);
 
-                function createprojfunc(project_type) {
-                    return function () {
-                        $('#' + project.id).on("click", function () {
-                            _gaq.push(['_trackEvent', 'Filter', 'Click', project_type]);
-                        });
-                    };
-                }
+                                function createprojfunc(project_type) {
+                                        return function () {
+                                                $('#' + project.id).on("click", function () {
+                                                        _gaq.push(['_trackEvent', 'Filter', 'Click', project_type]);
+                                                    });
+                                            };
+                                        }
+                         
+                                        this.projfuncs[i] = createprojfunc(project_type);
+                                        this.projfuncs[i]();
 
-                this.projfuncs[i] = createprojfunc(project_type);
-                this.projfuncs[i]();
 
             }
         }
@@ -292,7 +265,6 @@ var Projects = (function ($) {
          */
         this.centerPin = function (e) {
 
-            _gaq.push(['_trackEvent', 'Accordion', 'Show-On-Map', e.data.projectName]);
 
             var Latlng = new google.maps.LatLng(
                 e.data.panel.Lat,
@@ -343,7 +315,6 @@ var Projects = (function ($) {
                                 }
                             }
                             var maskedAddress = addarray.join(' ');
-                            //_gaq.push(['_trackEvent', 'Find Me', 'Address', maskedAddress]);
                         } else {
                             alert('We\'re sorry. We could not find an address for this location.');
                         }
@@ -471,7 +442,7 @@ var Projects = (function ($) {
             if (project_type_to_display == 'all') {
 
                 for (var i in this.Events) {
-                    var project_types = $.trim(this.Events[i].data['3. Project type']);      // Start project type
+                    var project_types = $.trim(this.Events[i].data['Category']);      // Start project type
                     var pin_url = 'img/grey-transparent.png';
                     for (var project_type in project_type_info) {
                         var project = project_type_info[project_types];
@@ -501,7 +472,7 @@ var Projects = (function ($) {
 
                 for (var i in this.Events) {
 
-                    var ptype = this.Events[i].data['3. Project type'];
+                    var ptype = this.Events[i].data['Category'];
 
                     if (this.Events[i].marker) { // If google map was able to create a map marker
                         if (ptype.indexOf(looking_for) != -1) {

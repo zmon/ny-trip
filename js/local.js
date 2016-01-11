@@ -1,12 +1,12 @@
 var local_default = {
     // City
-    city: 'Kansas City',
+    city: 'New York',
     // DOM ID of where the Google Map is to be rendered
     domid: 'map-canvas',
     // Google maps API key
     googlemapsapikey: 'AIzaSyDQNzkJUiUJBqI_pex-Xe9_1JD4sf2KZS8',
     // Spread Sheet key
-    spread_sheet_key: '11HmkFMesjwdeY2gLpV-U84GIwqvxjvTGU_Jk8rnslJU', // Production
+    spread_sheet_key: '1H3QGGflklE90sHKYAyeFYIGA-78m4NZHImlocHLiuPI', // Production
     infoboxoptions: {
         disableAutoPan: false,
         maxWidth: 0,
@@ -26,11 +26,11 @@ var local_default = {
         enableEventPropagation: false
     },
     // Start center latutude of the Google map
-    lat: 39.0997,
+    lat: 40.75543649999999,
     // Start center longitude of the Google map
-    lng: -94.5783,
+    lng: -73.97264179999999,
     // State
-    state: 'Missouri',
+    state: 'NY',
     // Defined style types passed to TkMap
     styles: 'grey minlabels',
     // Initial zoom level for the Google map

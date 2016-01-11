@@ -138,9 +138,6 @@ var DetailPage = (function ($) {
 
                     accordion += '' + "\n";
                     accordion += '        <br>' + "\n";
-                    accordion += '                  <p><a id="show-on-map-' + i + '" type="button" class="btn btn-default" href="#">Show on map</a>' + "\n";
-                    accordion += '                      <a  style="float: right;" href="mailto:info@communitykc.org?subject=Please Change ' + project_name + ' (' + i + ')">Request Change</a></p>' + "\n";
-                    accordion += '                </p>' + "\n";
                     accordion += '                </div>' + "\n";
                     accordion += '              </div>' + "\n";
                     accordion += '            </div>' + "\n";
@@ -236,7 +233,6 @@ var DetailPage = (function ($) {
                                 }
                             }
                             var maskedAddress = addarray.join(' ');
-                            //_gaq.push(['_trackEvent', 'Find Me', 'Address', maskedAddress]);
                         } else {
                             alert('We\'re sorry. We could not find an address for this location.');
                         }
@@ -281,7 +277,6 @@ var DetailPage = (function ($) {
                     navigator.geolocation.getCurrentPosition(
                         // Success
                         function (position) {
-                            //_gaq.push(['_trackEvent', 'GPS', 'Success']);
                             var Latlng = new google.maps.LatLng(
                                 position.coords.latitude,
                                 position.coords.longitude

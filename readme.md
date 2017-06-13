@@ -2,7 +2,7 @@
 
 ## Problem Statement
 
-Primary goal for this app -- connecting citizens (Tinder for projects).
+Primary goal for this app -- connecting citizens.
 Details in project's wiki: https://github.com/codeforkansascity/civic-project-mapping/wiki
 
 Initial impetus for a community project map: *The Community Capital Fund* and our partners have realized through our 
